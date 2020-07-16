@@ -2,6 +2,7 @@ package test;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -26,10 +27,6 @@ public class CalculatorTests {
     public void checkCalculatorResults(){
         driver.get("https://cloud.google.com/products/calculator");
         calculatorPage = new CalculatorPage(driver);
-//        calculatorPage.selectComputeEngineSection()
-//                .setNumberOfInstances("4")
-//                .selectDatacenterLocationFrankfurt()
-//                .selectCommittedUsage1Year();
         calculatorPage.selectComputeEngineSection()
                 .setNumberOfInstances("4")
                 .selectFreeOperatingSystem()
@@ -40,6 +37,11 @@ public class CalculatorTests {
                 .selectDatacenterLocationFrankfurt()
                 .selectCommittedUsage1Year()
                 .clickAddToEstimateButton();
+        Assert.assertTrue(calculatorPage.checkCartVmClass());
+
+
+
+
 //        cloudPage = new CloudPage(driver);
 //        cloudPage.openCloudPage()
 //                .clickSearchIcon()

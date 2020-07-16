@@ -67,6 +67,10 @@ public class CalculatorPage {
     private WebElement committedUsage1Year;
     @FindBy(xpath = "//button[@ng-click='listingCtrl.addComputeServer(ComputeEngineForm);']")
     private WebElement addToEstimateButton;
+    @FindBy(xpath = "//*[contains(@class, 'cartitem')]//*[contains(text(),'VM class: regular')]")
+    private WebElement cartVmClass;
+    @FindBy(xpath = "//*[contains(@class, 'cartitem')]//*[contains(text(),'Instance type: n1-standard-8')]")
+    private WebElement cartInstanceType;
 
 
 
@@ -99,18 +103,21 @@ public class CalculatorPage {
 
     public CalculatorPage selectFreeOperatingSystem(){
         executor.executeScript("arguments[0].click();", operatingSystemDropDown);
+        waitThreadSleep(500);
         executor.executeScript("arguments[0].click();", freeSystem.get(1));
         return this;
     }
 
     public CalculatorPage selectRegularMachineClass(){
         executor.executeScript("arguments[0].click();", machineClassDropDown);
+        waitThreadSleep(500);
         executor.executeScript("arguments[0].click();", regularClass.get(1));
         return this;
     }
 
     public CalculatorPage selectMachineType(){
         executor.executeScript("arguments[0].click();", machineTypeDropDown);
+        waitThreadSleep(500);
         executor.executeScript("arguments[0].click();", n1Stnadard8Type);
         return this;
     }
@@ -118,40 +125,31 @@ public class CalculatorPage {
     public CalculatorPage selectGpu1NvidiaTeslaV100(){
         executor.executeScript("arguments[0].click();", addGpuCheckbox);
         executor.executeScript("arguments[0].click();", numberOfGpusDropDown);
+        waitThreadSleep(500);
         executor.executeScript("arguments[0].click();", numberOfGpu1);
         executor.executeScript("arguments[0].click();", gpuTypeDropDown);
+        waitThreadSleep(500);
         executor.executeScript("arguments[0].click();", gpuNvidiaTeslaV100);
         return this;
     }
 
     public CalculatorPage selectSsd2x375Gb(){
         executor.executeScript("arguments[0].click();", localSsdDropDown);
+        waitThreadSleep(500);
         executor.executeScript("arguments[0].click();", ssd2x375Gb);
         return this;
     }
 
     public CalculatorPage selectDatacenterLocationFrankfurt(){
         executor.executeScript("arguments[0].click();", datacenterLocationDropDown);
-//        new WebDriverWait(driver,10).until(CustomConditions.angularIsFinished());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        waitThreadSleep(500);
         executor.executeScript("arguments[0].click();",datacenterLocationFrankfurt);
         return  this;
     }
 
     public CalculatorPage selectCommittedUsage1Year(){
-//        new WebDriverWait(driver,10).until(CustomConditions.angularIsFinished());
         executor.executeScript("arguments[0].click();", committedUsageDropDown);
-        new WebDriverWait(driver,10).until(CustomConditions.angularIsFinished());
-//        waitForAngularLoad();
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        waitThreadSleep(500);
         executor.executeScript("arguments[0].click();", committedUsage1Year);
 
         return this;
@@ -159,19 +157,27 @@ public class CalculatorPage {
 
     public CalculatorPage clickAddToEstimateButton(){
         executor.executeScript("arguments[0].click();", addToEstimateButton);
-//        addToEstimateButton.click();
         return this;
     }
 
-    public void waitForAngularLoad() {
-        final String angularReadyScript = "return (window.angular !== undefined) && (angular.element(document.body).injector() !== undefined) && (angular.element(document.body).injector().get('$http').pendingRequests.length === 0)";
-        ExpectedCondition<Boolean> angularLoad = new ExpectedCondition<Boolean>() {
-            @NullableDecl
-            public Boolean apply(@NullableDecl WebDriver webDriver) {
-                return Boolean.valueOf(executor.executeScript(angularReadyScript).toString());
-            }
-        };
-        new WebDriverWait(driver,5).until(angularLoad);
+
+
+    public boolean checkCartVmClass(){
+        return cartVmClass.isDisplayed();
+    }
+    public boolean checkCartInstanceType(){
+        return cartInstanceType.isDisplayed();
+    }
+
+
+
+
+    public void waitThreadSleep(Integer millis){
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
