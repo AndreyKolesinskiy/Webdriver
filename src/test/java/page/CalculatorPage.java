@@ -71,6 +71,7 @@ public class CalculatorPage {
     private WebElement cartVmClass;
     @FindBy(xpath = "//*[contains(@class, 'cartitem')]//*[contains(text(),'Instance type: n1-standard-8')]")
     private WebElement cartInstanceType;
+    
 
 
 
