@@ -22,8 +22,6 @@ public class CalculatorPage {
 
     private WebDriver driver;
     private JavascriptExecutor executor;
-    private EventFiringWebDriver eventDriver;
-    private WebEventListener webEventListener;
 
 
 
@@ -71,9 +69,20 @@ public class CalculatorPage {
     private WebElement cartVmClass;
     @FindBy(xpath = "//*[contains(@class, 'cartitem')]//*[contains(text(),'Instance type: n1-standard-8')]")
     private WebElement cartInstanceType;
-    
-
-
+    @FindBy(xpath = "//*[contains(@class, 'cartitem')]//*[contains(text(),'Region: Frankfurt')]")
+    private WebElement cartRegion;
+    @FindBy(xpath = "//*[contains(@class, 'cartitem')]//*[contains(text(),'Total available local SSD space 2x375 GiB')]")
+    private WebElement cartLocalSsd;
+    @FindBy(xpath = "//*[contains(@class, 'cartitem')]//*[contains(text(),'Commitment term: 1 Year')]")
+    private WebElement cartCommitmentTerm;
+    @FindBy(xpath = "//*[contains(@class, 'cartitem')]//*[contains(text(),'USD 1,082.77')]")
+    private WebElement cartCost;
+    @FindBy(xpath = "//button[contains(text(),'Email Estimate')]")
+    private WebElement emailEstimateButton;
+    @FindBy(xpath = "//form[@name='emailForm']//input[@type='email']")
+    private WebElement emailFieldInEmailForm;
+    @FindBy(xpath = "//form[@name='emailForm']//button[contains(text(),'Send Email')]")
+    private WebElement sendEmailButton;
 
 
 
@@ -82,12 +91,7 @@ public class CalculatorPage {
     public CalculatorPage(WebDriver driver){
         this.driver = driver;
         this.executor = (JavascriptExecutor) driver;
-//        eventDriver = new EventFiringWebDriver(driver);
-//        webEventListener = new WebEventListener();
-//        eventDriver.register(webEventListener);
         PageFactory.initElements(driver, this);
-
-
     }
 
     public CalculatorPage selectComputeEngineSection(){
@@ -169,8 +173,31 @@ public class CalculatorPage {
     public boolean checkCartInstanceType(){
         return cartInstanceType.isDisplayed();
     }
+    public boolean checkCartRegion(){
+        return cartRegion.isDisplayed();
+    }
+    public boolean checkCartLocalSsd(){
+        return cartLocalSsd.isDisplayed();
+    }
+    public boolean checkCartCommitmentTerm(){
+        return cartCommitmentTerm.isDisplayed();
+    }
+    public boolean checkCartCost(){
+        return cartCost.isDisplayed();
+    }
 
+    public CalculatorPage clickAddEmailEstimateButton(){
+        executor.executeScript("arguments[0].click();", emailEstimateButton);
+        return this;
+    }
 
+    public CalculatorPage enterEmailAndClickSend(String email){
+//        waitThreadSleep(5000);
+        emailFieldInEmailForm.sendKeys(email);
+//        waitThreadSleep(5000);
+        executor.executeScript("arguments[0].click();", sendEmailButton);
+        return this;
+    }
 
 
     public void waitThreadSleep(Integer millis){
