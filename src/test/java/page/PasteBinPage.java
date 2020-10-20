@@ -11,20 +11,20 @@ public class PasteBinPage {
     private static final String HOMEPAGE_URL = "https://pastebin.com/";
     private WebDriver driver;
 
-    @FindBy(xpath = "//*[@name='paste_code']")
+    @FindBy(xpath = "//*[@name='PostForm[text]']")
     private WebElement pasteCodeArea;
-    @FindBy(xpath = "//*[contains(@id, 'select2-paste_expire_date')]")
+    @FindBy(xpath = "//*[@id='select2-postform-expiration-container']")
     private WebElement expirationDropdown;
-    @FindBy(xpath = "//*[contains(@id, 'select2-paste_expire_date')]//*[text()='10 Minutes']")
+    @FindBy(xpath = "//*[@id='select2-postform-expiration-results']/*[text()='10 Minutes']")
     private WebElement tenMititesItem;
-    @FindBy(xpath = "//*[@name='paste_name']")
+    @FindBy(xpath = "//*[@id='postform-name']")
     private WebElement pasteNameTitleFieled;
-    @FindBy(xpath = "//*[contains(@id, 'select2-paste_format')]")
+    @FindBy(xpath = "//*[@id='select2-postform-format-container']")
     private WebElement syntaxHighlightingDropdown;
-    @FindBy(xpath = "//*[contains(@id, 'select2-paste_format')]//*[text()='Bash']")
+    @FindBy(xpath = "//*[contains(text(),'POPULAR LANGUAGES')]/..//*[text()='Bash']")
     private WebElement bashItem;
-    @FindBy(xpath = "//input[@id='submit']")
-    private WebElement submitButton;
+    @FindBy(xpath = "//*[text()='Create New Paste']")
+    private WebElement createNewPasteButton;
 
     public PasteBinPage(WebDriver driver){
         this.driver = driver;
@@ -44,6 +44,7 @@ public class PasteBinPage {
 
     public PasteBinPage selectTenMinExpiration(){
         expirationDropdown.click();
+        new WebDriverWait(driver,10).until(ExpectedConditions.visibilityOf(tenMititesItem));
         tenMititesItem.click();
         return this;
     }
@@ -59,8 +60,8 @@ public class PasteBinPage {
         return this;
     }
 
-    public BashPage clickSubmitButton(){
-        submitButton.click();
+    public BashPage clickCrateNewPaste(){
+        createNewPasteButton.click();
         return new BashPage(driver);
     }
 }

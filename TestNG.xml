@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="C:/Users/andre/Documents/Webdriver">
+        <classes>
+            <class name="test.CalculatorTests">
+                <methods>
+                    <include name="checkCalculatorResultsOnPage"/>
+                    <include name="checkCalculatorResultsInEmail"/>
+                </methods>
+            </class>
+            <class name="test.PasteBinPageTests">
+                <methods>
+                    <include name="selectFields"/>
+                    <include name="checkHeaderSyntaxAndCode"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BashPage {
     private WebDriver driver;
@@ -12,7 +14,7 @@ public class BashPage {
     private WebElement highlightedCode;
     @FindBy(xpath = "//title")
     private WebElement titleOfPage;
-    @FindBy(xpath = "//*[@id='paste_code']")
+    @FindBy(xpath = "//*[@class='textarea']")
     private WebElement displayedCode;
 
     public BashPage(WebDriver driver){
@@ -26,6 +28,7 @@ public class BashPage {
     }
 
     public String getTitleOfPage(){
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(displayedCode));
         String title = driver.getTitle();
         return title;
     }

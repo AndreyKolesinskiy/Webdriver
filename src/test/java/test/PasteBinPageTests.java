@@ -41,9 +41,9 @@ public class PasteBinPageTests {
                 .selectSyntaxBash()
                 .selectTenMinExpiration()
                 .typeNameTitle("how to gain dominance among developers")
-                .clickSubmitButton();
+                .clickCrateNewPaste();
         bashPage = new BashPage(driver);
-        Assert.assertEquals(bashPage.getTitleOfPage(), "[Bash] how to gain dominance among developers - Pastebin.com");
+        Assert.assertEquals(bashPage.getTitleOfPage(), "how to gain dominance among developers - Pastebin.com");
         Assert.assertEquals(bashPage.getColorOfCode(),"rgba(194, 12, 185, 1)");
         Assert.assertEquals(bashPage.getDisplayedCode(), "git config --global user.name  \"New Sheriff in Town\"\n" +
                 "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n" +
